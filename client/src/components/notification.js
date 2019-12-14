@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -25,13 +25,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Notification({notifications,getNotifications,clickNotification}) {
+function Notification({ notifications, getNotifications, clickNotification }) {
   const classes = useStyles();
   const [skip, setSkip] = useState(0);
-  
-  useEffect(()=>{
+
+  useEffect(() => {
     getNotifications(0);
-  },[getNotifications])
+  }, [getNotifications])
 
   if (notifications) {
     return (
@@ -73,7 +73,7 @@ function Notification({notifications,getNotifications,clickNotification}) {
             );
           })}
           <button disabled={skip <= 0 ? true : false} onClick={e => { setSkip(skip - 8); getNotifications(skip - 8); }}>prev</button>
-          <button onClick={e => { setSkip(skip + 8); getNotifications(skip + 8); }}>next</button>
+          <button disabled={notifications.length < 8 ? true : false} onClick={e => { setSkip(skip + 8); getNotifications(skip + 8); }}>next</button>
         </List>
       </Grid>
     );
@@ -82,7 +82,7 @@ function Notification({notifications,getNotifications,clickNotification}) {
   }
 }
 
-const mapStateToProps= state => ({
+const mapStateToProps = state => ({
   notifications: state.getnotification.notifications
 });
 

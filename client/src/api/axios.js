@@ -2,6 +2,7 @@ import axios from "axios";
 
 const fetchClient = () => {
     const defaultOptions = {
+        // baseURL: "http://kra.n1.iworklab.com:3006",
         baseURL: "http://localhost:3006",
         method: "get",
         headers: {
