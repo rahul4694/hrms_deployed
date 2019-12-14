@@ -123,7 +123,7 @@ const useStyles = makeStyles(theme => ({
 
 function Dashboard(props) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const [designation, setDesignation] = React.useState(null);
   const [component, setComponent] = React.useState(null);
   const [flag, setFlag] = React.useState(false);
