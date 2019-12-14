@@ -1,4 +1,6 @@
-import axios from "axios";
+// import axios from "axios";
+import Axios from "../api/axios"
+
 import setAuthToken from "../utils/setAuthToken";
 import {
   GET_ERRORS,
@@ -20,7 +22,7 @@ import Profile from "../components/myprofile";
 import React from "react";
 // Login - get user token
 export const loginUser = userData => dispatch => {
-  axios
+  Axios
     .post("/login", userData)
     .then(res => {
       // Set token to localStorage
@@ -28,7 +30,7 @@ export const loginUser = userData => dispatch => {
 
       localStorage.setItem("jwtToken", token);
       // Set token to Auth header
-      setAuthToken(token);
+      // setAuthToken(token);
       // Decode token to get user data and Set current user
       dispatch(
         setCurrentUser({
@@ -58,7 +60,7 @@ export const setCurrentUser = decoded => dispatch => {
       payload: decoded
     });
   } else {
-    axios
+    Axios
       .get("/getuserdata")
       .then(res => {
         const { userdata, NotificationNumber } = res.data;
@@ -90,7 +92,7 @@ export const setUserLoading = () => {
 // Log user out
 export const logoutUser = () => async dispatch => {
   // Remove token from local storage
-  axios
+  Axios
     .get("/logout")
     .then(() => {
       // dispatch(flush());

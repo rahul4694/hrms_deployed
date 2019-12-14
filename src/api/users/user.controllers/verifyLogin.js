@@ -20,7 +20,8 @@ const verifyLogin = async (req, res, next) => {
       typeId: notificationtype._id
     });
     await notification.save();
-    res.redirect("http://localhost:3000");
+    // res.redirect("http://localhost:3000");
+    res.redirect("http://kra.n1.iworklab.com:3006")
   } catch (e) {
     console.log(e.message);
     res.status(500).send("server error");

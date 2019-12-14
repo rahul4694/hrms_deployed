@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { formData, getDropdown } from "../actions/adduser";
 
 export class OfficialDetails extends React.Component {
-  state = { reportingManager: [] };
+  state = { reportingManager: [], flag: true };
   componentDidMount() {
     this.props.getDropdown();
   }
@@ -19,11 +19,13 @@ export class OfficialDetails extends React.Component {
       const arr = this.state.reportingManager.filter(rm => {
         return rm.name === "CEO" ? true : false;
       });
+      this.props.addUserForm.selectedreportingManager = arr[0];
       await this.setState({ reportingManager: arr });
     } else if (design.name === "Employee/Team Lead") {
       const arr = this.state.reportingManager.filter(rm => {
         return rm.name !== "CEO" ? true : false;
       });
+      this.props.addUserForm.selectedreportingManager = {};
       await this.setState({ reportingManager: arr });
     }
   };
@@ -38,6 +40,11 @@ export class OfficialDetails extends React.Component {
       selectedreportingManager,
       selectedkraAttributes
     } = this.props.addUserForm;
+
+    if (this.state.flag) {
+      this.filterRM(selectedDesignation);
+      this.setState({ flag: false });
+    }
     return (
       <MDBContainer>
         <div style={{ maxWidth: "350px", margin: "0 auto" }}>

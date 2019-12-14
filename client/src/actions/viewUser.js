@@ -1,5 +1,7 @@
 import { VIEW_USERS, GET_ERRORS } from "./types";
-import Axios from "axios";
+// import Axios from "axios";
+import Axios from "../api/axios"
+
 import { flush } from "./flushRedux";
 
 export const viewUsers = skip => dispatch => {

@@ -1,5 +1,7 @@
 import { VIEW_KRA, ADD_KRA, GET_ERRORS } from "./types";
-import Axios from "axios";
+// import Axios from "axios";
+import Axios from "../api/axios"
+
 import { setCurrentUser } from "./authAction";
 import {flush} from './flushRedux';
 

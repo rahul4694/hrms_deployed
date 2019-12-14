@@ -1,5 +1,7 @@
-import { GET_NOTIFICATIONS, GET_ERRORS,NOTIFICATION_NUMBER } from "./types";
-import Axios from "axios";
+import { GET_NOTIFICATIONS, GET_ERRORS, NOTIFICATION_NUMBER } from "./types";
+// import Axios from "axios";
+import Axios from "../api/axios"
+
 import { flush } from "./flushRedux";
 
 export const getNotifications = (skip) => dispatch => {
@@ -21,17 +23,17 @@ export const getNotifications = (skip) => dispatch => {
     });
 };
 
-export const clickNotification=(id)=>dispatch=>{
-  Axios.get(`/postnotif/${id}`).then((res)=>{
+export const clickNotification = (id) => dispatch => {
+  Axios.get(`/postnotif/${id}`).then((res) => {
     dispatch({
-      type:NOTIFICATION_NUMBER,
-      payload:res.data.NotificationNumber
+      type: NOTIFICATION_NUMBER,
+      payload: res.data.NotificationNumber
     })
     dispatch({
       type: GET_NOTIFICATIONS,
       payload: res.data.notification
     });
-  }).catch((err)=>{
+  }).catch((err) => {
     if (err.response.data.error === "Please authenticate") {
       dispatch(flush());
     }

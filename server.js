@@ -14,14 +14,14 @@ const notificationSeeder = require("./src/config/seeds/notificationseeder");
 const departmentSeed = require("./src/config/seeds/departmentseeder");
 const kraRouter = require("./src/api/kraSheets/krasheetRouters");
 const showemploye = require("./src/api/admin/admin_routers/admin_router");
-
+const cors = require("cors");
 // Bodyparser middleware
 app.use(
   bodyParser.urlencoded({
     extended: false
   })
 );
-
+app.use(cors());
 app.get("/", (req, res, next) => {
   res.send("server is connected on 3006");
   next();
