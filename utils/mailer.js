@@ -5,16 +5,11 @@ module.exports = function (email, token, verify) {
   const name = decoded.userdata.name;
   const date = new Date().getFullYear();
   var transporter = nodemailer.createTransport({
-    //   service: 'gmail',
-    host: "mail.vinove.com",
-    secure: false,
-    port: 587,
+    service: 'gmail',
+    // host: "gmail.com",
     auth: {
       user: "ceomern@gmail.com",
       pass: "ceomern2019"
-    },
-    tls: {
-      rejectUnauthorized: false
     }
   });
   const message1 = `You requested for a password reset, kindly use this ${verify} to reset your password`;

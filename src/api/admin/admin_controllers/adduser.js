@@ -43,7 +43,6 @@ const addUser = async (req, res, next) => {
 
     await mailer(email, token, verify);
 
-
     res.status(200).json("mail sent");
   } catch (e) {
     console.log(e.message);
