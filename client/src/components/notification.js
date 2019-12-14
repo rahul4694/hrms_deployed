@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -25,58 +25,56 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Notification(props) {
+function Notification({notifications,getNotifications,clickNotification}) {
   const classes = useStyles();
-  const [skip, setSkip] = React.useState(0);
-  const [flag, setFlag] = React.useState(false);
+  const [skip, setSkip] = useState(0);
+  
+  useEffect(()=>{
+    getNotifications(0);
+  },[getNotifications])
 
-  if (flag === false) {
-    props.getNotifications(0);
-    setFlag(true);
-  }
-
-  if (props.notifications) {
+  if (notifications) {
     return (
       <Grid item xs={12} md={8} className={classes.demo}>
-          <List>
-            {props.notifications.map((ele) => {
-              return (
-                <ListItem
-                  style={{ background: ele.read===true?"whiteSmoke":"lightgrey", color:ele.read===true?"grey":'black' }}
-                  key={ele._id}
-                  onClick={e => props.clickNotification(ele._id)}
-                >
-                  <ListItemAvatar>
-                    {ele.typeId.type === "KRA filled" ? (
-                      <Avatar
-                        style={{
-                          fontSize: "medium",
-                          backgroundColor: "orange"
-                        }}
-                      >
-                        <EventNoteIcon />
-                      </Avatar>
-                    ) : ele.typeId.type === "KRA Approved" ? (
-                      <Avatar
-                        style={{ fontSize: "medium", backgroundColor: "blue" }}
-                      >
-                        <DoneAllIcon />
-                      </Avatar>
-                    ) : (
-                      <Avatar
-                        style={{ fontSize: "medium", backgroundColor: "green" }}
-                      >
-                        <HowToRegIcon />
-                      </Avatar>
-                    )}
-                  </ListItemAvatar>
-                  {ele.from.name + " " + ele.typeId.msg}
-                </ListItem>
-              );
-            })}
-            <button disabled={skip<=0?true:false} onClick={e=>{setSkip(skip-8); props.getNotifications(skip-8); }}>prev</button>
-            <button onClick={e=>{setSkip(skip+8); props.getNotifications(skip+8); }}>next</button>
-          </List>
+        <List>
+          {notifications.map((ele) => {
+            return (
+              <ListItem
+                style={{ background: ele.read === true ? "whiteSmoke" : "lightgrey", color: ele.read === true ? "grey" : 'black' }}
+                key={ele._id}
+                onClick={e => { !ele.read && clickNotification(ele._id) }}
+              >
+                <ListItemAvatar>
+                  {ele.typeId.type === "KRA filled" ? (
+                    <Avatar
+                      style={{
+                        fontSize: "medium",
+                        backgroundColor: "orange"
+                      }}
+                    >
+                      <EventNoteIcon />
+                    </Avatar>
+                  ) : ele.typeId.type === "KRA Approved" ? (
+                    <Avatar
+                      style={{ fontSize: "medium", backgroundColor: "blue" }}
+                    >
+                      <DoneAllIcon />
+                    </Avatar>
+                  ) : (
+                        <Avatar
+                          style={{ fontSize: "medium", backgroundColor: "green" }}
+                        >
+                          <HowToRegIcon />
+                        </Avatar>
+                      )}
+                </ListItemAvatar>
+                {ele.from.name + " " + ele.typeId.msg}
+              </ListItem>
+            );
+          })}
+          <button disabled={skip <= 0 ? true : false} onClick={e => { setSkip(skip - 8); getNotifications(skip - 8); }}>prev</button>
+          <button onClick={e => { setSkip(skip + 8); getNotifications(skip + 8); }}>next</button>
+        </List>
       </Grid>
     );
   } else {
@@ -84,7 +82,7 @@ function Notification(props) {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps= state => ({
   notifications: state.getnotification.notifications
 });
 
