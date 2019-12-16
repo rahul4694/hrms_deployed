@@ -18,7 +18,7 @@ import {
 
 import { setCurrentComponent } from "./componentActions";
 import { flush } from "./flushRedux";
-import Profile from "../components/myprofile";
+import Posts from "../components/postList";
 import React from "react";
 // Login - get user token
 export const loginUser = userData => dispatch => {
@@ -39,7 +39,7 @@ export const loginUser = userData => dispatch => {
         })
       );
 
-      dispatch(setCurrentComponent(<Profile />));
+      dispatch(setCurrentComponent(<Posts />));
       dispatch({
         type: CLEAR_ERRORS
       });
@@ -70,7 +70,7 @@ export const setCurrentUser = decoded => dispatch => {
             notificationLength: NotificationNumber
           })
         );
-        dispatch(setCurrentComponent(<Profile />));
+        dispatch(setCurrentComponent(<Posts />));
       })
       .catch(err => {
         if (err.response.data.error === "Please authenticate") {

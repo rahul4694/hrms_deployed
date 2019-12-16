@@ -1,5 +1,4 @@
 var express = require("express");
-const { check, validationResult } = require("express-validator");
 var router = express.Router();
 const adminauth = require("../middleware/adminauth");
 const userauth = require("../middleware/userauth");
@@ -17,7 +16,7 @@ const { seeds } = require("./user.controllers/seeds");
 const { getuserdata } = require("./user.controllers/getuserdata");
 
 router.post("/login", login);
-router.get("/getuserdata", getuserdata);
+router.get("/getuserdata", userauth, getuserdata);
 router.get("/logout", userauth, logout);
 router.get("/user/verifylogin/:token", verifyLogin);
 router.get("/showme", userauth, showme);

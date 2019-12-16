@@ -4,7 +4,7 @@ import FormControl from "@material-ui/core/FormControl";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { Header } from "semantic-ui-react";
-import {MDBInput, MDBBadge} from 'mdbreact'
+import { MDBInput } from "mdbreact";
 const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
@@ -42,39 +42,51 @@ function MyProfile(props) {
         style={style.h1}
         textAlign="center"
       />
-      <Header textAlign="center">
+      <div style={{ display: "flex", justifyContent: "center" }}>
         <FormControl className={classes.form}>
-          <MDBBadge className={classes.label}>Employee Code</MDBBadge>
+          <h5>
+            <span class="badge badge-primary">Employee Code</span>
+          </h5>
+
           <MDBInput
             disabled
             value={`${user.prefix}${user._id}`}
             name="firstname"
           />
-          
-          <MDBBadge className={classes.label}>Name</MDBBadge>
-          <MDBInput disabled value={user.name} name="firstname"></MDBInput>
-          
-          <MDBBadge className={classes.label}>Gender</MDBBadge>
 
+          <h5>
+            <span class="badge badge-primary">Name</span>
+          </h5>
+          <MDBInput disabled value={user.name} name="firstname"></MDBInput>
+
+          <h5>
+            <span class="badge badge-primary">Gender</span>
+          </h5>
           <MDBInput disabled value={user.gender} name="gender"></MDBInput>
-          
-          <MDBBadge className={classes.label}>Designation</MDBBadge>
+
+          <h5>
+            <span class="badge badge-primary">Designation</span>
+          </h5>
 
           <MDBInput
             disabled
             value={user.designation_id.name}
             name="designation"
           ></MDBInput>
-          
+
           {user.designation_id.name !== "Admin" ? (
             <>
-              <MDBBadge className={classes.label}>Department</MDBBadge>
+              <h5>
+                <span class="badge badge-primary">Department</span>
+              </h5>
               <MDBInput
                 disabled
                 value={user.department_id.name}
                 name="designation"
               ></MDBInput>
-              <MDBBadge className={classes.label}>Reporting Manager</MDBBadge>
+              <h5>
+                <span class="badge badge-primary">Reporting Manager</span>
+              </h5>
               <MDBInput
                 disabled
                 value={user.reportingManager.name}
@@ -82,8 +94,8 @@ function MyProfile(props) {
               ></MDBInput>{" "}
             </>
           ) : null}
-        </FormControl>  
-      </Header>
+        </FormControl>
+      </div>
     </Paper>
   );
 }

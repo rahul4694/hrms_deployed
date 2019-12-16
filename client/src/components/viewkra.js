@@ -92,34 +92,21 @@ function CustomizedTables(props) {
       });
       return props.viewkradata.map((month, i) => {
         return (
-          <Table className={classes.table} aria-label="customized table">
-            <TableHead>
-              <TableRow>
-                <StyledTableCell align="left">Key Result Area</StyledTableCell>
-                {props.kraattr.map(kra => (
-                  <StyledTableCell align="center" key={kra._id}>
-                    {kra.name}
+          <TableBody>
+            <StyledTableRow key={i}>
+              <StyledTableCell component="th" scope="row">
+                {trowhead[i]}
+              </StyledTableCell>
+              {month.kraAttributes.map((kra, j) => {
+                return (
+                  <StyledTableCell key={j} align="center">
+                    {kra.value}
                   </StyledTableCell>
-                ))}
-                <StyledTableCell align="center">Status</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <StyledTableRow key={i}>
-                <StyledTableCell component="th" scope="row">
-                  {trowhead[i]}
-                </StyledTableCell>
-                {month.kraAttributes.map((kra, j) => {
-                  return (
-                    <StyledTableCell key={j} align="center">
-                      {kra.value}
-                    </StyledTableCell>
-                  );
-                })}
-                <StyledTableCell align="center">{month.Status}</StyledTableCell>
-              </StyledTableRow>
-            </TableBody>
-          </Table>
+                );
+              })}
+              <StyledTableCell align="center">{month.Status}</StyledTableCell>
+            </StyledTableRow>
+          </TableBody>
         );
       });
     }
@@ -145,7 +132,20 @@ function CustomizedTables(props) {
         ))}
       </Select>
       {props.viewkradata.length > 0 ? (
-        showlist()
+        <Table className={classes.table} aria-label="customized table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell align="left">Key Result Area</StyledTableCell>
+              {props.kraattr.map(kra => (
+                <StyledTableCell align="center" key={kra._id}>
+                  {kra.name}
+                </StyledTableCell>
+              ))}
+              <StyledTableCell align="center">Status</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          {showlist()}
+        </Table>
       ) : (
         <div style={{ display: "flex", justifyContent: "center" }}>
           NO KRA FILLED

@@ -1,9 +1,10 @@
 export const NOTIFICATION_NUMBER = "NOTIFICATION_NUMBER";
 export const DROPDOWN_DATA = "DROPDOWN_DATA";
 export const FORMDATA = "FORMDATA";
-export const BASICDETAILS="BASICDETAILS";
+export const BASICDETAILS = "BASICDETAILS";
 export const VIEW_KRA = "VIEW_KRA";
 export const ADD_KRA = "ADD_KRA";
+export const ALL_BLOGS = "ALL_BLOGS";
 export const EDIT_KRA = "EDIT_KRA";
 export const SUBMIT_KRA = "SUBMIT_KRA";
 export const GET_ERRORS = "GET_ERRORS";

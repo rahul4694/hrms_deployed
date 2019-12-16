@@ -9,7 +9,7 @@ const getuserdata = async (req, res, next) => {
     const user = await User.findOne({ _id: decoded.userdata._id });
 
     const user2 = await User.findById(user._id)
-      .select("-password -__v")
+      .select("-password -__v -token")
       .populate("kraAttributes designation_id department_id reportingManager", [
         "name"
       ]);

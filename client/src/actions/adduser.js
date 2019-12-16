@@ -1,11 +1,8 @@
 import { DROPDOWN_DATA, FORMDATA, GET_ERRORS, BASICDETAILS } from "./types";
 // import Axios from "axios";
 import Axios from "../api/axios"
-import { setCurrentComponent } from "./componentActions";
-import Alluser from "../components/viewUser";
-import React from "react";
 import { flush } from "./flushRedux";
-import { logoutUser } from "./authAction";
+
 export const getDropdown = () => dispatch => {
   Axios.get("/getseeds")
     .then(res => {

@@ -29,7 +29,7 @@ const login = async (req, res) => {
       if (isMatch) {
         const user2 = await user
           .findById(User._id)
-          .select("-password -__v")
+          .select("-password -__v -token")
           .populate(
             "kraAttributes designation_id department_id reportingManager",
             ["name"]
@@ -57,7 +57,7 @@ const login = async (req, res) => {
               NotificationNumber: length
             });
             user2.token = token;
-            user2.save();
+            user2.save(); 
           }
         );
       } else {

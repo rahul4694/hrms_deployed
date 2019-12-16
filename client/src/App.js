@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser } from "./actions/authAction";
 import { Provider } from "react-redux";
 import store from "./store";
@@ -10,8 +9,6 @@ import Dashboard from "./components/dashboard/dashboard";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
-  const token = localStorage.jwtToken;
-  setAuthToken(token);
   store.dispatch(setCurrentUser(null));
 }
 

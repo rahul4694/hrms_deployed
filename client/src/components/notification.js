@@ -35,7 +35,7 @@ function Notification({ notifications, getNotifications, clickNotification }) {
 
   if (notifications) {
     return (
-      <Grid item xs={12} md={8} className={classes.demo}>
+      <Grid item xs={12} md={12} className={classes.demo}>
         <List>
           {notifications.map((ele) => {
             return (

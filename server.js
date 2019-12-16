@@ -14,6 +14,7 @@ const notificationSeeder = require("./src/config/seeds/notificationseeder");
 const departmentSeed = require("./src/config/seeds/departmentseeder");
 const kraRouter = require("./src/api/kraSheets/krasheetRouters");
 const showemploye = require("./src/api/admin/admin_routers/admin_router");
+const posts=require("./src/api/posts/postrouters")
 const cors = require("cors");
 // Bodyparser middleware
 app.use(
@@ -34,7 +35,7 @@ app.use(passport.initialize());
 
 // Passport config
 require("./config/passport")(passport);
-
+app.use(posts);
 app.use(showemploye);
 app.use(userRouters);
 app.use(kraRouter);

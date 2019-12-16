@@ -36,12 +36,14 @@ const addUser = async (req, res, next) => {
     newUser.kraAttributes = arr;
     const token = jwt.sign({ userdata: newUser }, "secretKey");
     const email = newUser.email;
-    const verify = `http://kra.n1.iworklab.com:3006/user/verifylogin/${token}`;
+    // const verify = `http://kra.n1.iworklab.com:3006/user/verifylogin/${token}`;
+    const verify = `http://localhost:3006/user/verifylogin/${token}`;
+
 
     ////// verification msg for developers/////////
     console.log("verify", verify);
 
-    await mailer(email, token, verify);
+    // await mailer(email, token, verify);
 
     res.status(200).json("mail sent");
   } catch (e) {
