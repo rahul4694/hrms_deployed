@@ -8,7 +8,7 @@ export const addpost = formdata => async dispatch => {
       "Content-Type": "application/json"
     }
   };
-  Axios.post("/addpost", formdata, config)
+  Axios.post("/applyleave", formdata, config)
     .then(res => {
       dispatch({
         type: ALL_BLOGS,

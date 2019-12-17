@@ -15,7 +15,8 @@ const departmentSeed = require("./src/config/seeds/departmentseeder");
 const leaveTypeSeeder=require("./src/config/seeds/leaveTypeseeder");
 const kraRouter = require("./src/api/kraSheets/krasheetRouters");
 const showemploye = require("./src/api/admin/admin_routers/admin_router");
-const posts=require("./src/api/posts/postrouters")
+const posts=require("./src/api/posts/postrouters");
+const leaveRouter=require("./src/api/leaves/leaves.router")
 const cors = require("cors");
 // Bodyparser middleware
 app.use(
@@ -40,6 +41,9 @@ app.use(posts);
 app.use(showemploye);
 app.use(userRouters);
 app.use(kraRouter);
+
+app.use(leaveRouter);
+
 app.use(departmentRouter);
 app.use(notificationRouter);
 app.use(departmentSeed);

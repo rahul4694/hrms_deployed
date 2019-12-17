@@ -12,17 +12,13 @@ class Posts extends Component {
   }
 
   renderlist = () => {
-    return this.props.blogs.postlist.map(user => {
+    return this.props.blogs.postlist.map(blog => {
       return (
         <PostItem
-          key={user._id}
-          author={user.userName}
-          type={user.type}
-          title={user.title}
-          description={user.description}
-          id={user._id}
+          key={blog._id}
+          blog={blog}
           skip={this.state.skip}
-          owner={this.props.owner_id === user.userId ? true : false}
+          owner={this.props.owner_id === blog.userId ? true : false}
         />
       );
     });
@@ -30,7 +26,6 @@ class Posts extends Component {
 
   render() {
     const { loading, postlist } = this.props.blogs;
-    const { errors } = this.props;
     if (loading) {
       return <div>loading</div>;
     }

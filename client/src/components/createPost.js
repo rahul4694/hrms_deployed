@@ -40,7 +40,6 @@ class CreatePost extends Component {
   render() {
     const { errors } = this.props;
     this.formdataLoaded();
-    console.log(this.props.edit)
     return (
       <form onSubmit={this.onSubmit}>
         <input

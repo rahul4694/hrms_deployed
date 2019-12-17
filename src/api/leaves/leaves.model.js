@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const leaveSchema = new mongoose.Schema({
   userId: {
     type: Number,
-    ref: "User"
+    req: true
   },
   fromDate: {
     type: Date,
@@ -13,13 +13,15 @@ const leaveSchema = new mongoose.Schema({
     type: Date,
     required: true
   },
-  leaveType: [
+  leaveData: [
     {
       type: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "leaveType"
       },
-      qty: Number
+      qty: {
+        type: Number
+      }
     }
   ],
   reason: {

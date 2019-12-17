@@ -4,37 +4,52 @@ import { deletepost } from "../actions/blog";
 import { setCurrentComponent } from "../actions/componentActions";
 import { connect } from "react-redux";
 import EditPost from "./editPost";
+import { MDBIcon } from "mdbreact";
 
 class PostItem extends Component {
   state = { postid: null };
   render() {
-    const { author, type, title, description, owner, id } = this.props;
+    const {
+      userName,
+      type,
+      title,
+      description,
+      _id,
+      date,
+      likes
+    } = this.props.blog;
+    const { owner } = this.props;
     return (
       <>
         <br />
-        <Paper style={{ width: "80%", padding: "5px" }}>
           <div style={{ border: "solid 0.1px grey", padding: "5px" }}>
-            author:{author}
+            <h5>{title}</h5>
+            <MDBIcon icon="user-circle" />
+            {userName}&nbsp;
+            {date}
             <br />
-            type:{type}
+            {type}
             <br />
-            title:{title}
+            {description}
             <br />
-            description:{description}
+            <MDBIcon far icon="thumbs-up" />
+            &nbsp;{likes.length}
+            <br />
+            <input />
             <br />
             {owner && (
               <>
                 <button
                   onClick={e =>
-                    this.props.setCurrentComponent(<EditPost postid={id} />)
+                    this.props.setCurrentComponent(<EditPost postid={_id} />)
                   }
                 >
                   edit
                 </button>
                 <button
                   onClick={e => {
-                    this.props.deletepost(id, this.props.skip);
-                    this.setState({ postid: id });
+                    this.props.deletepost(_id, this.props.skip);
+                    this.setState({ postid: _id });
                   }}
                 >
                   delete
@@ -44,10 +59,9 @@ class PostItem extends Component {
           </div>
           <span style={{ color: "red" }}>
             {this.props.errors.error &&
-              id === this.state.postid &&
+              _id === this.state.postid &&
               this.props.errors.error.deletemsg}
           </span>
-        </Paper>
       </>
     );
   }
