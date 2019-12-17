@@ -46,11 +46,36 @@ export const getpost = skip => async dispatch => {
     });
 };
 
-export const deletepost = id => async dispatch => {
-  Axios.get(`/deletepost/${id}`).then(res => {
-    dispatch({
-      type: ALL_BLOGS,
-      payload: res.data
+export const deletepost = (id, skip) => async dispatch => {
+  Axios.get(`/deletepost/${id}/${skip}`)
+    .then(res => {
+      dispatch({
+        type: ALL_BLOGS,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      console.log(err.response);
+      dispatch({
+        type: GET_ERRORS,
+        payload: { error: err.response.data }
+      });
     });
-  });
+};
+
+export const editpost = formdata => async dispatch => {
+  Axios.post(`/editpost`, formdata)
+    .then(res => {
+      dispatch({
+        type: "EDIT_POST",
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      console.log(err.response);
+      dispatch({
+        type: GET_ERRORS,
+        payload: { error: err.response.data }
+      });
+    });
 };

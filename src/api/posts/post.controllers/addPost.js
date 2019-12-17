@@ -3,8 +3,6 @@ const Post = require("../post.model");
 const addpost = async (req, res, next) => {
   let errors = validationResult(req);
   if (!errors.isEmpty()) {
-    let newerr={}
-    console.log(errors);
     return res.status(400).json({ errors: errors.array() });
   }
   try {

@@ -1,10 +1,11 @@
 import React from "react";
-import Paper from "@material-ui/core/Paper";
-import FormControl from "@material-ui/core/FormControl";
-import { connect } from "react-redux";
+import Grid from "@material-ui/core/Grid";
+import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import { connect } from "react-redux";
 import { Header } from "semantic-ui-react";
-import { MDBInput } from "mdbreact";
+
 const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
@@ -30,6 +31,7 @@ const style = {
     padding: "2em 0em"
   }
 };
+
 function MyProfile(props) {
   const classes = useStyles();
   const { user } = props;
@@ -42,64 +44,80 @@ function MyProfile(props) {
         style={style.h1}
         textAlign="center"
       />
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <FormControl className={classes.form}>
-          <h5>
-            <span class="badge badge-primary">Employee Code</span>
-          </h5>
-
-          <MDBInput
-            disabled
+      <Grid container>
+        <Grid item xs={11}>
+          <TextField
+            id="firstName"
+            name="firstName"
+            label="Employee Code"
+            fullWidth
+            readOnly
             value={`${user.prefix}${user._id}`}
-            name="firstname"
           />
-
-          <h5>
-            <span class="badge badge-primary">Name</span>
-          </h5>
-          <MDBInput disabled value={user.name} name="firstname"></MDBInput>
-
-          <h5>
-            <span class="badge badge-primary">Gender</span>
-          </h5>
-          <MDBInput disabled value={user.gender} name="gender"></MDBInput>
-
-          <h5>
-            <span class="badge badge-primary">Designation</span>
-          </h5>
-
-          <MDBInput
-            disabled
+        </Grid>
+        <br /> <br /> <br /> <br />
+        <Grid item xs={11}>
+          <TextField
+            id="lastName"
+            name="lastName"
+            label="First name"
+            fullWidth
+            readOnly
+            value={user.name}
+          />
+        </Grid>
+        <br /> <br /> <br /> <br />
+        <Grid item xs={11}>
+          <TextField
+            id="address1"
+            name="address1"
+            label="Gender"
+            fullWidth
+            readOnly
+            value={user.gender}
+          />
+        </Grid>
+        <br /> <br /> <br /> <br />
+        <Grid item xs={11}>
+          <TextField
+            id="address2"
+            name="address2"
+            label="Designation"
+            fullWidth
+            readOnly
             value={user.designation_id.name}
-            name="designation"
-          ></MDBInput>
-
-          {user.designation_id.name !== "Admin" ? (
-            <>
-              <h5>
-                <span class="badge badge-primary">Department</span>
-              </h5>
-              <MDBInput
-                disabled
+          />
+          <br /> <br />
+        </Grid>
+        {user.designation_id.name !== "Admin" ? (
+          <>
+            <Grid item xs={11}>
+              <TextField
+                id="city"
+                name="city"
+                label="Department"
+                fullWidth
+                readOnly
                 value={user.department_id.name}
-                name="designation"
-              ></MDBInput>
-              <h5>
-                <span class="badge badge-primary">Reporting Manager</span>
-              </h5>
-              <MDBInput
-                disabled
+              />
+            </Grid>
+            <br /> <br /> <br /> <br />
+            <Grid item xs={11}>
+              <TextField
+                id="zip"
+                name="zip"
+                label="Reporting Manager"
+                fullWidth
+                readOnly
                 value={user.reportingManager.name}
-                name="reportingmanager"
-              ></MDBInput>{" "}
-            </>
-          ) : null}
-        </FormControl>
-      </div>
+              />
+            </Grid>
+          </>
+        ) : null}
+      </Grid>
     </Paper>
   );
 }
-
 const mapStateToProps = state => {
   return { user: state.auth.user.userdata };
 };

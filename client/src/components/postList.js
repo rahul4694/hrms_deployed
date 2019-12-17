@@ -1,16 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PostItem from "./postItem";
+import CreatePost from "./createPost";
 import { addpost, getpost } from "../actions/blog";
 import Paper from "@material-ui/core/Paper";
 
 class Posts extends Component {
-  state = {
-    type: ["Technical", "Attendance/Leave", "Events"],
-    title: "",
-    describe: "",
-    skip: 0
-  };
+  state = { skip: 0 };
   componentDidMount() {
     this.props.getpost(0);
   }
@@ -24,22 +20,12 @@ class Posts extends Component {
           type={user.type}
           title={user.title}
           description={user.description}
+          id={user._id}
+          skip={this.state.skip}
           owner={this.props.owner_id === user.userId ? true : false}
         />
       );
     });
-  };
-  onSubmit = e => {
-    e.preventDefault();
-    this.props.addpost({
-      title: this.state.title,
-      type: this.state.selectType,
-      description: this.state.describe
-    });
-    this.setState({ title: "", describe: "", selectType: "" });
-  };
-  handleForm = val => {
-    this.setState({ [Object.keys(val)]: Object.values(val)[0] });
   };
 
   render() {
@@ -51,44 +37,7 @@ class Posts extends Component {
     return (
       <Paper style={{ width: "80%", padding: "10px" }}>
         <div style={{ width: "100%" }}>
-          <form onSubmit={this.onSubmit}>
-            <input
-              placeholder="title"
-              required
-              value={this.state.title}
-              onChange={e => this.handleForm({ title: e.target.value })}
-            />
-            {errors.title}
-            <br />
-            <select
-              onChange={e => this.handleForm({ selectType: e.target.value })}
-            >
-              {this.state.type.map(ele => {
-                return (
-                  <option key={ele} value={ele}>
-                    {ele}
-                  </option>
-                );
-              })}
-            </select>
-            {errors.type}
-
-            <br />
-            <br />
-            <Paper style={{ width: "80%", padding: "10px" }}>
-              <textarea
-                value={this.state.describe}
-                required
-                cols={30}
-                rows={5}
-                placeholder="description..."
-                onChange={e => this.handleForm({ describe: e.target.value })}
-              ></textarea>
-              {errors.description}
-            </Paper>
-            <br />
-            <button>create post</button>
-          </form>
+          <CreatePost />
           <button
             disabled={this.state.skip === 0 ? true : false}
             onClick={e => {
