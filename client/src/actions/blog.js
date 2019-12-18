@@ -8,7 +8,7 @@ export const addpost = formdata => async dispatch => {
       "Content-Type": "application/json"
     }
   };
-  Axios.post("/applyleave", formdata, config)
+  Axios.post("/addpost", formdata, config)
     .then(res => {
       dispatch({
         type: ALL_BLOGS,
@@ -70,6 +70,40 @@ export const editpost = formdata => async dispatch => {
         type: "EDIT_POST",
         payload: res.data
       });
+    })
+    .catch(err => {
+      console.log(err.response);
+      dispatch({
+        type: GET_ERRORS,
+        payload: { error: err.response.data }
+      });
+    });
+};
+
+export const handlelike = id => async dispatch => {
+  Axios.post(`/handlelike/${id}`)
+    .then(res => {
+      dispatch({
+        type:"HANDLE_LIKE",
+        payload:{postid:id, likes:res.data }
+      })
+    })
+    .catch(err => {
+      console.log(err.response);
+      dispatch({
+        type: GET_ERRORS,
+        payload: { error: err.response.data }
+      });
+    });
+};
+
+export const addcomments = (id, comment) => async dispatch => {
+  Axios.post(`/addcomment/${id}`, { comment })
+    .then(res => {
+      dispatch({
+        type:"ADD_COMMENT",
+        payload:{postid:id, comments:res.data }
+      })
     })
     .catch(err => {
       console.log(err.response);

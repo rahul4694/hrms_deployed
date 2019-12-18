@@ -41,7 +41,9 @@ class CreatePost extends Component {
     const { errors } = this.props;
     this.formdataLoaded();
     return (
+      <div class="ui form">
       <form onSubmit={this.onSubmit}>
+      <div class="field">
         <input
           placeholder="title"
           required
@@ -49,8 +51,8 @@ class CreatePost extends Component {
           onChange={e => this.handleForm({ title: e.target.value })}
         />
         {errors.title}
-        <br />
-        <select
+        <div class="field">
+        <select class="ui search dropdown"
           defaultChecked={this.state.selectType}
           onChange={e => this.handleForm({ selectType: e.target.value })}
         >
@@ -62,23 +64,22 @@ class CreatePost extends Component {
             );
           })}
         </select>
+        </div>
         {errors.type}
-
-        <br />
-        <Paper style={{ width: "80%", padding: "10px" }}>
           <textarea
             value={this.state.describe}
             required
             cols={30}
-            rows={5}
+            rows="2"
             placeholder="description..."
             onChange={e => this.handleForm({ describe: e.target.value })}
           ></textarea>
           {errors.description}
-        </Paper>
         <br />
         <button>{this.props.edit ? "Update Post" : "create post"}</button>
+        </div>
       </form>
+      </div>
     );
   }
 }

@@ -17,6 +17,7 @@ class Posts extends Component {
         <PostItem
           key={blog._id}
           blog={blog}
+          ownerId={this.props.owner_id}
           skip={this.state.skip}
           owner={this.props.owner_id === blog.userId ? true : false}
         />
@@ -30,7 +31,6 @@ class Posts extends Component {
       return <div>loading</div>;
     }
     return (
-      <Paper style={{ width: "80%", padding: "10px" }}>
         <div style={{ width: "100%" }}>
           <CreatePost />
           <button
@@ -54,7 +54,6 @@ class Posts extends Component {
           <br />
           {this.renderlist()}
         </div>
-      </Paper>
     );
   }
 }

@@ -6,7 +6,7 @@ const addpost = require("./post.controllers/addPost");
 const getpost = require("./post.controllers/getPost");
 const deletepost = require("./post.controllers/deletePost");
 const editpost = require("./post.controllers/editPost");
-
+const { addcomments, handlelikes } = require("./post.controllers/addcomments");
 router.post(
   "/addpost",
   [
@@ -23,6 +23,8 @@ router.post(
   ],
   addpost
 );
+router.post("/addcomment/:id", userauth, addcomments);
+router.post("/handlelike/:id", userauth, handlelikes);
 router.get("/getpost/:skip", userauth, getpost);
 router.get("/deletepost/:id/:skip", userauth, deletepost);
 router.post(

@@ -23,6 +23,28 @@ export default function(state = initialstate, action) {
         loading: false,
         postlist: newarr
       };
+      case "ADD_COMMENT":
+        return {
+          ...state,
+          loading:false,
+          postlist:state.postlist.map((post)=>{
+            if(post._id===payload.postid){
+              post.comments=payload.comments
+            }
+            return post
+          })
+        }
+      case "HANDLE_LIKE":
+        return {
+          ...state,
+          loading:false,
+          postlist:state.postlist.map((post)=>{
+            if(post._id===payload.postid){
+              post.likes=payload.likes
+            }
+            return post
+          })
+        }
     default:
       return state;
   }
