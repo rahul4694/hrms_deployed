@@ -3,11 +3,13 @@ import { deletepost } from "../actions/blog";
 import { setCurrentComponent } from "../actions/componentActions";
 import { handlelike, addcomments } from "../actions/blog";
 import { connect } from "react-redux";
+import PostDetails from "./postDetails";
 import Moment from "react-moment";
 import EditPost from "./editPost";
 import { MDBIcon } from "mdbreact";
 import logo from "./bkgrnd.jpg";
 import "./index.css";
+
 const PostItem = ({
   blog: { userName, type, title, description, _id, date, likes, comments },
   errors,
@@ -17,7 +19,8 @@ const PostItem = ({
   deletepost,
   ownerId,
   handlelike,
-  addcomments
+  addcomments,
+  isfrompostdetails
 }) => {
   const [formdata, setformdata] = useState({
     postid: null,
@@ -38,98 +41,141 @@ const PostItem = ({
   };
   return (
     <>
-      <div className="ui card">
+      <div
+        className="ui card"
+        style={{
+          width: "100%",
+          fontSize: "10px",
+          fontWeight: "lighter",
+          fontFamily: "Arial"
+        }}
+      >
         <div className="content">
+          <div className="ui black ribbon label">{userName}</div>
           <div className="right floated meta">
             <Moment format="DD/MM/YYYY">{date}</Moment>
+            {owner && (
+              <div>
+                <MDBIcon
+                  style={{ color: "lightblue" }}
+                  far={transparent}
+                  icon="thumbs-up"
+                  onClick={e => {
+                    handlelike(_id);
+                    likeClick(ownerId);
+                  }}
+                />
+                {like.length}
+                &nbsp;
+                <MDBIcon
+                  onClick={e => {
+                    setshow(!show);
+                  }}
+                  icon="comment-alt"
+                  style={{ color: "lightblue" }}
+                />
+                {comments.length}
+                &nbsp;
+                <MDBIcon
+                  icon="pencil-alt"
+                  onClick={e => setCurrentComponent(<EditPost postid={_id} />)}
+                />
+                <MDBIcon
+                  icon="trash"
+                  onClick={e => {
+                    deletepost(_id, skip);
+                    setformdata({ ...formdata, postid: _id });
+                  }}
+                />
+              </div>
+            )}
           </div>
-          <img className="ui avatar image" src={logo} /> {title}&nbsp;by
-          {userName}
-        </div>
-        <div className="content">
-          <span>{description}</span>
-        </div>
-        <div className="content">
+          <img className="ui avatar image" src={logo} />
           <span>
-            <MDBIcon
-              style={{ color: "lightblue" }}
-              far={transparent}
-              icon="thumbs-up"
-              onClick={e => {
-                handlelike(_id);
-                likeClick(ownerId);
-              }}
-            />
-            {likes.length}
-            &nbsp;<MDBIcon icon="comment-alt" style={{ color: "lightblue" }} />
-          {comments.length}
+            <span style={{ fontSize: "10px", fontWeight: "bold" }}>
+              {title}
+            </span>
           </span>
-          <div className="ui large transparent left icon input form">
-            
-            <textarea rows="2" type="text" placeholder="Add Comment..."></textarea>
-          </div>
-          <button>send</button>
         </div>
-      </div>
-
-      <div
-        className="ui items"
-        style={{ border: "solid 0.1px grey", padding: "5px" }}
-      >
-        <div className="item">
-          <img
-            className="ui tiny image"
-            src={logo}
-            alt="no"
-            // style={{ width: "25px", borderRadius: "50%" }}
-          />
-          <h6>{title}</h6>
-          {owner && (
-            <div style={{ float: "right" }}>
-              <MDBIcon
-                icon="pencil-alt"
-                onClick={e => setCurrentComponent(<EditPost postid={_id} />)}
-              />
-              <MDBIcon
-                icon="trash"
-                onClick={e => {
-                  deletepost(_id, skip);
-                  setformdata({ ...formdata, postid: _id });
-                }}
-              />
-            </div>
-          )}
-        </div>
-        <span style={{ fontSize: "10px" }}>
-          by&nbsp;{userName}&nbsp; on&nbsp;
-          <Moment format="DD/MM/YYYY">{date}</Moment>
-        </span>
-        {/* {type} */}
-        <br />
-        {description}
-        <br />
-        <input
-          hidden={show}
-          style={{ width: "100%", borderRadius: "20px" }}
-          onChange={e => {
-            setformdata({ ...formdata, comment: e.target.value });
-          }}
-        />
-        &nbsp;{like.length}
-        &nbsp;
-        <MDBIcon icon="comment-alt" style={{ color: "lightblue" }} />
-        &nbsp;{comments.length}
-        <button
-          style={{ borderRadius: "20px" }}
-          onClick={e => {
-            setshow(!show);
-            // addcomments(_id, comment);
-          }}
+        <div
+          className="content"
+          style={{ maxHeight: "200px", overflow: "auto" }}
         >
-          Add comment
-        </button>
-        <br />
-        {comments[0] && comments[0].msg}
+          <pre>{description}</pre>
+        </div>
+
+        {comments.length > 0 && (
+          <>
+            {isfrompostdetails ? (
+              <div class="ui comments" style={{padding:"10px"}}>
+                <h3 class="ui dividing header"></h3>
+                {comments.map((cm, i) => (
+                  <div class="comment">
+                    <a class="avatar">
+                      <img src={logo} />
+                    </a>
+                    <div class="content">
+                      <a class="author">{cm.userId}</a>
+                      <div class="metadata">
+                        <span class="date">Yesterday at 12:30AM</span>
+                      </div>
+                      <div class="text">
+                        <pre>{cm.msg}</pre>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div
+                class="comment content"
+                onClick={e => setCurrentComponent(<PostDetails postid={_id} />)}
+                style={{
+                  maxHeight: "100px",
+                  overflow: "auto",
+                  background: "lightyellow"
+                }}
+              >
+                <a class="avatar">
+                  <img src={logo} />
+                </a>
+                <div class="content">
+                  <a class="author">{comments[0].userId}</a>
+                  <div class="metadata">
+                    <span class="date">Yesterday at 12:30AM</span>
+                  </div>
+                  <div class="text">
+                    <pre>{comments[0].msg}</pre>
+                  </div>
+                </div>
+              </div>
+            )}
+          </>
+        )}
+        <div
+          className="ui tiny transparent left icon input form"
+          style={{ display: show ? "none" : "block" }}
+        >
+          <textarea
+            onChange={e => {
+              setformdata({ ...formdata, comment: e.target.value });
+            }}
+            rows="5"
+            type="text"
+            placeholder="Add Comment..."
+            style={{
+              fontSize: "10px",
+              fontWeight: "lighter",
+              fontFamily: "Arial"
+            }}
+          ></textarea>
+          <div
+            className="ui teal small button right floated"
+            onClick={e => addcomments(_id, comment)}
+          >
+            Add Reply
+          </div>
+        </div>
       </div>
       <span style={{ color: "red" }}>
         {errors.error && _id === postid && errors.error.deletemsg}

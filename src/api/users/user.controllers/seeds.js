@@ -19,7 +19,7 @@ const seeds = async (req, res) => {
     const department = await Department.find().select("-__v");
 
     let designation = await Designation.find().select("-__v");
-    designation = designation.filter(des => des.name !== "Admin");
+    designation = designation.filter(des => des.name !== "Admin" || des.name !=="Human Resource");
 
     const kraAttributes = await Kra.find().select("-__v");
     res.json({ reportingManager, department, designation, kraAttributes });
