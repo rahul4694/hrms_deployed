@@ -1,15 +1,16 @@
 import React from "react";
-import { deletepost } from "../actions/blog";
 import { setCurrentComponent } from "../actions/componentActions";
-import { handlelike, addcomments } from "../actions/blog";
 import { connect } from "react-redux";
 import PostItem from "./postItem";
-import {} from "../actions/blog";
+import PostList from "./postList";
 
 function PostDetails(props) {
   const blog = props.blog[0];
   return (
     <div>
+      <button className="ui mini icon button" onClick={e => props.setCurrentComponent(<PostList />)}>
+      <i className="left chevron icon"></i>
+      </button>
       {props.blog && (
         <PostItem
           key={blog._id}
@@ -32,8 +33,5 @@ const mapStateToProps = (state, props) => {
   };
 };
 export default connect(mapStateToProps, {
-  handlelike,
-  addcomments,
-  deletepost,
   setCurrentComponent
 })(PostDetails);

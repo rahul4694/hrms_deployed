@@ -50,32 +50,32 @@ const PostItem = ({
           fontFamily: "Arial"
         }}
       >
-        <div className="content">
+        <div className="content" style={{background:"rgba(0,0,0,0.3)"}}>
           <div className="ui black ribbon label">{userName}</div>
           <div className="right floated meta">
             <Moment format="DD/MM/YYYY">{date}</Moment>
+            <MDBIcon
+              style={{ color: "lightblue" }}
+              far={transparent}
+              icon="thumbs-up"
+              onClick={e => {
+                handlelike(_id);
+                likeClick(ownerId);
+              }}
+            />
+            {like.length}
+            &nbsp;
+            <MDBIcon
+              onClick={e => {
+                setshow(!show);
+              }}
+              icon="comment-alt"
+              style={{ color: "lightblue" }}
+            />
+            {comments.length}
+            &nbsp;
             {owner && (
-              <div>
-                <MDBIcon
-                  style={{ color: "lightblue" }}
-                  far={transparent}
-                  icon="thumbs-up"
-                  onClick={e => {
-                    handlelike(_id);
-                    likeClick(ownerId);
-                  }}
-                />
-                {like.length}
-                &nbsp;
-                <MDBIcon
-                  onClick={e => {
-                    setshow(!show);
-                  }}
-                  icon="comment-alt"
-                  style={{ color: "lightblue" }}
-                />
-                {comments.length}
-                &nbsp;
+              <span>
                 <MDBIcon
                   icon="pencil-alt"
                   onClick={e => setCurrentComponent(<EditPost postid={_id} />)}
@@ -87,7 +87,7 @@ const PostItem = ({
                     setformdata({ ...formdata, postid: _id });
                   }}
                 />
-              </div>
+              </span>
             )}
           </div>
           <img className="ui avatar image" src={logo} />
@@ -99,7 +99,7 @@ const PostItem = ({
         </div>
         <div
           className="content"
-          style={{ maxHeight: "200px", overflow: "auto" }}
+          style={{ maxHeight: "200px", overflow: "auto", background:"whitesmoke" }}
         >
           <pre>{description}</pre>
         </div>
@@ -107,19 +107,19 @@ const PostItem = ({
         {comments.length > 0 && (
           <>
             {isfrompostdetails ? (
-              <div class="ui comments" style={{padding:"10px"}}>
-                <h3 class="ui dividing header"></h3>
+              <div className="ui comments" style={{ padding: "10px" }}>
+                <h3 className="ui dividing header"></h3>
                 {comments.map((cm, i) => (
-                  <div class="comment">
-                    <a class="avatar">
+                  <div key={i} className="comment">
+                    <span className="avatar">
                       <img src={logo} />
-                    </a>
-                    <div class="content">
-                      <a class="author">{cm.userId}</a>
-                      <div class="metadata">
-                        <span class="date">Yesterday at 12:30AM</span>
+                    </span>
+                    <div className="content">
+                      <span className="author">{cm.userId}</span>
+                      <div className="metadata">
+                        <span className="date">Yesterday at 12:30AM</span>
                       </div>
-                      <div class="text">
+                      <div className="text">
                         <pre>{cm.msg}</pre>
                       </div>
                     </div>
@@ -128,7 +128,7 @@ const PostItem = ({
               </div>
             ) : (
               <div
-                class="comment content"
+                className="comment content"
                 onClick={e => setCurrentComponent(<PostDetails postid={_id} />)}
                 style={{
                   maxHeight: "100px",
@@ -136,15 +136,14 @@ const PostItem = ({
                   background: "lightyellow"
                 }}
               >
-                <a class="avatar">
+                <span className="avatar">
                   <img src={logo} />
-                </a>
-                <div class="content">
-                  <a class="author">{comments[0].userId}</a>
-                  <div class="metadata">
-                    <span class="date">Yesterday at 12:30AM</span>
-                  </div>
-                  <div class="text">
+                </span>
+                &nbsp;
+                <span className="author">{comments[0].userId}</span>&nbsp;
+                <span className="date">Yesterday at 12:30AM</span>
+                <div className="content">
+                  <div className="text">
                     <pre>{comments[0].msg}</pre>
                   </div>
                 </div>

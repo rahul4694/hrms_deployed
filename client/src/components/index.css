@@ -7,3 +7,14 @@ html {
   display: flex;
   justify-content: space-around;
 }
+.text {
+  margin-left: 22px;
+}
+.author {
+  font-weight: bold;
+  font-size: 12px;
+}
+.date {
+  font-size: 8px;
+  color: grey;
+}

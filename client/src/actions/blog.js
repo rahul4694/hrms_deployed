@@ -29,8 +29,10 @@ export const addpost = formdata => async dispatch => {
     });
 };
 
-export const getpost = skip => async dispatch => {
-  Axios.get(`/getpost/${skip}`)
+export const getpost = (postType, skip) => async dispatch => {
+  console.log(postType, skip, 'fkdsa');
+  
+  Axios.get(`/getpost/${postType}/${skip}`)
     .then(res => {
       dispatch({
         type: ALL_BLOGS,

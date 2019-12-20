@@ -29,7 +29,7 @@ class CreatePost extends Component {
     this.props.edit
       ? this.props.editpost({ ...obj, id: this.props.formdata._id })
       : this.props.addpost(obj);
-    this.setState({ title: "", describe: "", selectType: "" });
+    this.setState({ title: "", describe: "" });
     this.props.setCurrentComponent(<PostList />);
   };
   handleForm = val => {

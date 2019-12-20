@@ -7,11 +7,11 @@ import { addpost, getpost } from "../actions/blog";
 class Posts extends Component {
   state = {
     skip: 0,
-    type: ["Technical", "Attendance/Leave", "Events"],
+    type: ["Technical", "Attendance", "Events"],
     selectedType: "Technical"
   };
   componentDidMount() {
-    this.props.getpost(0);
+    this.props.getpost(this.state.selectedType, 0);
   }
 
   renderlist = () => {
@@ -42,7 +42,10 @@ class Posts extends Component {
                 className="ui button"
                 key={ele}
                 value={ele}
-                onClick={e => this.setState({ selectedType: e.target.value })}
+                onClick={e => {
+                  this.setState({ selectedType: e.target.value });
+                  this.props.getpost(e.target.value, 0);
+                }}
               >
                 {ele}
               </button>

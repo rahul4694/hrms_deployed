@@ -2,7 +2,8 @@ const Post = require("../post.model");
 
 const getpost = async (req, res, next) => {
   try {
-    const postlist = await Post.find({})
+    console.log(req.postType, req.skip)
+    const postlist = await Post.find({ type: req.postType })
       .sort({ date: -1 })
       .skip(Number(req.skip))
       .limit(10);

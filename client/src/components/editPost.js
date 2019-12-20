@@ -1,12 +1,19 @@
 import React from "react";
 import { connect } from "react-redux";
-import CreatePost from './createPost'
+import CreatePost from "./createPost";
 import { editpost } from "../actions/blog";
 
 function Editpost(props) {
-  return <div>
-      <CreatePost formdata={props.post[0]} edit={true}/>
-  </div>;
+  const formdata = props.post[0];
+  return (
+    <div>
+      <CreatePost
+        formdata={formdata}
+        selectedType={formdata.type}
+        edit={true}
+      />
+    </div>
+  );
 }
 const mapStateToProps = (state, props) => {
   return {

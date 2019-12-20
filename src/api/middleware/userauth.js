@@ -10,6 +10,7 @@ const userauth = async (req, res, next) => {
       throw new Error();
     }
     req.id = req.params.id;
+    req.postType=req.params.postType;
     req.skip = req.params.skip;
     req.token = token;
     req.user = user;

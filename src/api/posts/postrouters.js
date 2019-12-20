@@ -25,7 +25,7 @@ router.post(
 );
 router.post("/addcomment/:id", userauth, addcomments);
 router.post("/handlelike/:id", userauth, handlelikes);
-router.get("/getpost/:skip", userauth, getpost);
+router.get("/getpost/:postType/:skip", userauth, getpost);
 router.get("/deletepost/:id/:skip", userauth, deletepost);
 router.post(
   "/editpost",
